@@ -1,0 +1,20 @@
+				<p>If the above does not work or if you have a really old Linux distribution
+				  then you might get an automated install download
+				from Oracle by clicking on this button:<br>
+				<a href="http://www.java.com" target="_blank">
+				<img src="https://download.oracle.com/technetwork/java/get-java/getjavasoftware-88x31.png" alt="Get Java Software" border="0" width="88" height="31" />
+				</a>
+
+				<p>If that doesn't work or you need to manually install Java,
+				    you can find further information on the 
+				    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"> Oracle Java downloads page</a>.  
+				    <ul>
+				    <li>Java comes in several forms: 
+				    JMRI needs the Standard Edition (SE) version, but
+				    Java EE is also OK;<br>
+				    neither Java ME or Java Embedded are sufficient.
+				    <li>There are also different Java SE installers: JMRI can
+				    run with either a proper SDK (Software Development Kit, for compiling and running Java)
+				    or JRE (Java Runtime Environment, for just running Java) installation.
+				    </ul>
+				</p>

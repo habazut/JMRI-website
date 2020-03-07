@@ -47,15 +47,19 @@ JMRI on a Ubuntu (or similar Debian based) desktop.</p>
 	<a name="sysreq"></a><h3>JMRI System Requirements</h3>
 	<p>Using JMRI requires a combination of hardware (in this case running Linux),
 	Java software and a JMRI download for a specific version.
-	<p>JMRI&reg; version 4.2 requires Java 1.8.</p>
+	<p>JMRI&reg; version 4.2 requires Java 1.8 or later. Java 1.8
+           ist sometimes called Java 8. If your distribution is not
+           serveral years old, chances are very high that your Java 
+	   is Java 1.8 compatible.</p>
 	<p>
-	You'll need the correct serial port or USB port to attach to your layout hardware.
+	Most layout hardware is of the kind that it attaches through a serial port. In that case you'll need the correct serial port or 
+        serial USB port to attach to your layout hardware.
 	JMRI is compatible with USB-to-Serial adapters, so long as they have Linux drivers that make them look like regular serial ports.</p>
 	
 	<li>Get and Install Java (if needed)</li>
 	
 	<p>See if you have a version of Java already installed:<p>
-	<p class="example"> sh> java -version</p>
+	<p class="example"><pre>$ java -version</pre></p>
 	<p>
 	If the Java version is 1.8 or later, you may be fine, but be aware that if you did not install Java on your system yourself,
 	some systems have Java only partially installed. They will respond correctly to the above command, but still are not complete.
