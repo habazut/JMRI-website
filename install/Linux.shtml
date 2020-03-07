@@ -82,7 +82,7 @@
 				   be aware that if you did not install Java on your system
 				   yourself, some systems have Java only partially installed. They
 				   will respond correctly to the above command, but still are not
-				   all there. Recommendation is to install a full Java JDK on
+				   complete. Recommendation is to install a full Java JDK on
 				   your computer </p>
 
 				<p>If your Java version is not at least 1.8, or if you get a "java: not found"
@@ -102,37 +102,14 @@
 				  go for the complete JDK. </p>
 				
 				<p>If the above does not work or if you have a really old Linux distribution
-				  then you  might get an automated install download
-				from Oracle by clicking on this button:<br>
-				<a href="http://www.java.com" target="_blank">
-				<img src="https://download.oracle.com/technetwork/java/get-java/getjavasoftware-88x31.png" alt="Get Java Software" border="0" width="88" height="31" />
-				</a>
-
-				<p>If that doesn't work or you need to manually install Java,
-				    you can find further information on the 
-				    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"> Oracle Java downloads page</a>.  
-				    <ul>
-				    <li>Java comes in several forms: 
-				    JMRI needs the Standard Edition (SE) version, but
-				    Java EE is also OK;<br>
-				    neither Java ME or Java Embedded are sufficient.
-				    <li>There are also different Java SE installers: JMRI can
-				    run with either a proper SDK (Software Development Kit, for compiling and running Java)
-				    or JRE (Java Runtime Environment, for just running Java) installation.
-				    </ul>
+				  then you  might need the commercial <a href="Oracle.shtml"> Java from Oracle</a>.
 				</p>
 				
-				<li>If you connect your hardware with serial and/or USB your user
+				<li><p>If you connect your hardware with serial and/or USB your user
 				  might not have the rights to access these ports. Connect your hardware
-				  and look at the group ownership of that port. My hardware shows
-				  up as /dev/ttyUSB0 and has group ownership "dialout".
-				  <p class="example"> $ ls -l /dev/ttyUSB0 <br>
-                                                      crw-rw---- 1 root dialout 4, 64 Feb 12 10:36 /dev/ttyUSB0</p>
-                                  <p> Add yourself to that group </p>
-				  <p class="example"> $ sudo adduser $USER dialout </p>
-                                  <p> You may have already been in the group but that does not harm </p>
-				<li>
-				  <p> If you were added to the group, logout and login to make it take effect </p>
+				  and look at the group ownership of that port. Then add your user
+				  to that group. For details look att the distro specific document
+				  like for <a href="Ubuntu.shtml">Ubuntu</a></p>
 				<li>Get JMRI</li>
 				    <p><a href="../download/index.shtml#prod-rel">Download</a> a version of JMRI, either the
 				    latest production version, or a "test version".  Since the version

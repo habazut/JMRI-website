@@ -61,44 +61,74 @@ JMRI on a Ubuntu (or similar Debian based) desktop.</p>
 	<p>See if you have a version of Java already installed:<p>
 	<p class="example"><pre>$ java -version</pre></p>
 	<p>
-	If the Java version is 1.8 or later, you may be fine, but be aware that if you did not install Java on your system yourself,
-	some systems have Java only partially installed. They will respond correctly to the above command, but still are not complete.
-	If your system does not have Java in the environment variable PATH, the install is probably not complete.
-	Check with the system manager or do a fresh Java installation anyway.<br>
-	If your version is not at least 1.8, or if you get a "java: not found" error, you will need to install it.<br>
-	<p>Most Linux distributions can get an automated install download
-	from Oracle by clicking on this button:<br>
-	<a href="http://www.java.com" target="_blank">
-	<img src="https://download.oracle.com/technetwork/java/get-java/getjavasoftware-88x31.png" alt="Get Java Software" border="0" width="88" height="31" />
-	</a>
-	<p>
-	You arrive at a page like this one:</p>
-	<p><img src="images/UbInstall1.png" width="482" height="237">
-	<p>
-	Next you download the Java software package that suits your computer and operating system.<br>
-	When the download finishes, you will be asked where to store the Java install archive:</p>
-	<p><img src="images/UbInstall2.png" width="404" height="291">
+	If the Java version is 1.8 or later, you may be fine, but be
+	aware that if you did not install Java on your system
+	yourself, some systems have Java only partially installed.
+	They will respond correctly to the above command, but still
+	are not complete. Recommendation is to install a full Java
+	JDK on your computer </p> complete.
+
+
+	<p>If your Java version is not at least 1.8, or if you get a "java: not found"
+	  error, you will need to install it.</p>
 	
-	<p>If that doesn't work or you need to manually install Java,
-	you can find further information on the 
-	<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle Java downloads page</a>.  
-		<ul>
-		<li>Java comes in several forms: 
-		JMRI needs the Standard Edition (SE) version, but
-		Java EE is also OK;<br>
-		neither Java ME or Java Embedded are sufficient.
-		<li>There are also different Java SE installers: JMRI can
-		run with either a proper SDK (Software Development Kit, for compiling and running Java)
-		or JRE (Java Runtime Environment, for just running Java) installation.
-		</ul>
+        <p> Java comes often in two levels: </p>
+        <ul>
+	  <li> JRE (Java Runtime Environment): You need only this if you only run JMRI "as is"
+	  <li> JDK (Java Development Kit): You need this if you want to debug or develop JMRI
+	</ul>
+	
+	<p><b> Open your software install tool
+	    and search for jdk (or jre). On my
+	    Linux I found the meta package
+	    default-jdk which installed openjdk.</b>
+	  If you are not short on disk space
+	  go for the complete JDK. </p>
+<p class="example"><pre>
+$ apt-get install default-jdk 
+(...)
+$ dpkg -l | grep jdk 
+ii  default-jdk                                2:1.11-72                              amd64        Standard Java or Java compatible Development Kit
+ii  default-jdk-headless                       2:1.11-72                              amd64        Standard Java or Java compatible Development Kit (headless)
+ii  openjdk-11-jdk:amd64                       11.0.6+10-1ubuntu1~19.10.1       
+(...)
+</pre></p>
+	<p>If the above does not work or if you have a really old Linux distribution
+	  then you  might need the commercial <a href="Oracle.shtml"> Java from Oracle</a>.
 	</p>
 	
-	<li>After running the Java installer, give user-level application access to your serial ports:<br>
-	    <p>
-	    <tt>chmod 666 /dev/ttyS0</tt><br>
-	    <tt>chmod 666 /dev/ttyS1</tt></p>
-	    </li>
-	
+	<li>If you connect your hardware with serial and/or USB your user
+	  might not have the rights to access these ports. Connect your hardware
+	  and look at the group ownership of that port. This command should show
+	  you the last connected serial hardware. Here are two examples how this
+	  can look. The first one is a generic serial interface and the second
+	  one identifies itself as a LocoBuffer:
+<p class="example"><pre>
+$ ls -ltr /dev/serial/by-id/* /dev/tty?* | tail -2
+crw-rw---- 1 root dialout 188,  1 Mar  7 14:07 /dev/ttyUSB0
+lrwxrwxrwx 1 root root         13 Mar  7 14:07 /dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0 -> ../../ttyUSB0
+</pre></p>
+<p class="example"><pre>
+$ ls -ltr /dev/serial/by-id/* /dev/tty?* | tail -2
+crw-rw---- 1 root dialout 188,  1 Mar  7 15:35 /dev/ttyUSB1
+lrwxrwxrwx 1 root root         13 Mar  7 15:35 /dev/serial/by-id/usb-RR-CirKits_LocoBuffer-USB_FTP1EUA2-if00-port0 -> ../../ttyUSB1
+</pre></p>
+
+         <p>This output shows us the group name of the serial port,
+         here <code>dialout</code> and what the port is named, here
+         <code>/dev/ttyUSB1</code> for the LocoBuffer. Now we need to
+	 make sure that the user is member of the
+	 group <code>dialout</code> so that the hardware can be
+	 accessed.
+<p class="example"><pre>
+$ sudo adduser "$USER" dialout
+[sudo] password for myuser: ******** 
+</pre></p>
+         <p>If <code>adduser</code> does not tell you that you already
+	   were a member of the group you need to logout and login again
+	   so that the change takes effect. Restart of your computer
+	   does the trick as well but is not necessary.</p>
+        
 	<li>Get JMRI</li>
 	
 	<p>
@@ -135,8 +165,17 @@ JMRI on a Ubuntu (or similar Debian based) desktop.</p>
 	Now your PanelPro as well as the other JMRI SoundPro, Throttles, DecoderPro etc. launchers look like the one below:</p>
 	<p><img src="images/UbInstall9.png" height="174" width="379"></p>
 	
-	<p>Installation is complete.<br>
-	You can run the program by using the "DecoderPro", "PanelPro", or "JmriDemo" scripts in the JMRI folder. Change directory there, and invoke a script by typing e.g. "./DecoderPro" in Terminal.
+	<p>Installation is complete.<br> You can run the program by
+	using the "DecoderPro", "PanelPro", or "JmriDemo" scripts in
+	the JMRI folder. Change directory there, and invoke a script
+	by typing e.g. "./DecoderPro" in Terminal. When started for
+	the first time it will ask you to do initial configuration of
+	the JMRI Preferences. In Connections, use the serial device
+	name you found above, for example <code>/dev/ttyUSB0</code>.
+	If your USB devices change frequently because you have several
+	serial USB devices, you might consider using the long name you
+	found above like
+	<code>/dev/serial/by-id/usb-RR-CirKits_LocoBuffer-USB_FTP1EUA2-if00-port0</code>.
 	</p>
 	
 	</ol>
